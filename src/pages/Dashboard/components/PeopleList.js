@@ -1,10 +1,10 @@
 import PeopleListItem from "./PeopleListItem"
 
-function PeopleList({ people, isHiredList}) {
+function PeopleList({ people, areHired}) {
   return (
     <ul>
       {people.map((person, index) => (
-        <PeopleListItem key={index} person={person} isHiredList={isHiredList} />
+        <PeopleListItem key={index} person={person} areHired={areHired} />
       ))}
     </ul>
   )

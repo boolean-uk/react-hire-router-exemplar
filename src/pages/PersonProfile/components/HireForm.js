@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react"
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom'
+
+import { UIText, Paths } from '../../../utils/vars'
 
 function HireForm({hiredPeople, setHiredPeople}) {
   const [person, setPerson] = useState(null)
@@ -16,23 +18,30 @@ function HireForm({hiredPeople, setHiredPeople}) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    const newHire = {...person, wage: wage}
-    const newPeople = [...hiredPeople, newHire]
-    setHiredPeople(newPeople)
-    navigate('/')
+
+    const thisPerson = {...person, wage: wage}
+    const myHirees = [...hiredPeople]
+    const myIndex = hiredPeople.findIndex(hiredPerson => hiredPerson.id.value === person.id.value)
+    if ( myIndex === -1 ) {      
+      myHirees.push(thisPerson)
+    } else {
+      myHirees[myIndex] = thisPerson
+    }
+    setHiredPeople(myHirees)
+    navigate(Paths.home)
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="wage">Wage Offer</label>
+      <label htmlFor="wage">{UIText.hireWage}</label>
       <input
-        type="text"
+        type="number"
         id="wage"
         name="wage"
         onChange={e => setWage(e.target.value)}
         value={wage}
       />
-      <button type="submit">Hire</button>
+      <button type="submit">{UIText.hire}</button>
     </form>
   )
 }

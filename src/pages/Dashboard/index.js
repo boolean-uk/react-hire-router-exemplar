@@ -1,12 +1,8 @@
-import { useState } from "react"
-
 import PeopleList from "./components/PeopleList"
 
-export const Dashboard = (props) => {
+import { UIText } from '../../utils/vars'
 
-  const { people } = props
-  
-  const [hiredPeople, setHiredPeople] = useState([])
+export const Dashboard = ({ people, hiredPeople }) => {
 
   return (
     <>
@@ -15,18 +11,18 @@ export const Dashboard = (props) => {
 
           <>
             <section>
-              <h2>People</h2>
-              <PeopleList people={people} isHiredList={false}/>
+              <h2>{UIText.people}</h2>
+              <PeopleList people={people} areHired={false}/>
             </section>
             <section>
-              <h2>Hired People</h2>
-              <PeopleList people={hiredPeople} isHiredList={true} />
+              <h2>{UIText.peopleHired}</h2>
+              <PeopleList people={hiredPeople} areHired={true} />
             </section>
           </>
 
         ) : (
 
-          <p>Fetching people</p>
+          <p>{UIText.peopleFetch}</p>
 
         )}
       </main>

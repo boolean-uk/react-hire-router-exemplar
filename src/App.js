@@ -4,14 +4,14 @@ import { Routes, Route, Link } from 'react-router-dom'
 
 import { Dashboard } from './pages/Dashboard'
 import PersonProfile from './pages/PersonProfile'
-import PersonProfileEdit from './pages/PersonProfile/components/PersonProfileEdit'
 
-import { api } from './utils/vars'
+import { api, UIText, Paths } from './utils/vars'
 
 import './styles/styles.css'
 
 export default function App() {
 
+  const [hiredPeople, setHiredPeople] = useState([])
   const [people, setPeople] = useState([]) 
 
   useEffect(() => {
@@ -23,24 +23,24 @@ export default function App() {
           //console.log('my data', data)
           setPeople(data.results)
         })
+
   }, [])
 
   return (
     <>
       <header>
-        <h1>Hire Your Team</h1>
+        <h1>{UIText.appHeading}</h1>
         <nav>
           <ul>
             <li>
-              <Link to='/'>Dashboard</Link>
+              <Link to={Paths.home}>{UIText.appDashboard}</Link>
             </li>
           </ul>
         </nav>
       </header>
       <Routes>
-        <Route path='/' element={<Dashboard people={people} />} />
-        <Route path='/people/:id' element={<PersonProfile />} />
-        <Route path='/people/:id/edit' element={<PersonProfileEdit /> }/>
+        <Route path={Paths.home} element={<Dashboard people={people} hiredPeople={hiredPeople} />} />
+        <Route path={Paths.person} element={<PersonProfile hiredPeople={hiredPeople} setHiredPeople={setHiredPeople} />} />
       </Routes>
     </>
   )
