@@ -1,18 +1,28 @@
 import { useState, useEffect } from "react"
-import "./styles.css"
-import Dashboard from './pages/Dashboard'
+
+import { Routes, Route, Link } from 'react-router-dom'
+
+import { Dashboard } from './pages/Dashboard'
 import PersonProfile from './pages/PersonProfile'
 import PersonProfileEdit from './pages/PersonProfile/components/PersonProfileEdit'
 
-import { Routes, Route, Link } from 'react-router-dom'
+import { api } from './utils/vars'
+
+import './styles/styles.css'
+
 export default function App() {
-  const [hiredPeople, setHiredPeople] = useState([])
-  const [people, setPeople] = useState([])
+
+  const [people, setPeople] = useState([]) 
 
   useEffect(() => {
-    fetch('https://randomuser.me/api/?results=50')
-      .then(res => res.json())
-      .then(data => setPeople(data.results))
+
+      //console.log('fetching data')
+      fetch(`${api}/?results=50`)
+        .then(res => res.json())
+        .then(data => {
+          //console.log('my data', data)
+          setPeople(data.results)
+        })
   }, [])
 
   return (
@@ -28,24 +38,9 @@ export default function App() {
         </nav>
       </header>
       <Routes>
-        <Route path='/' element={
-          <Dashboard
-            people={people}
-            hiredPeople={hiredPeople}
-          />}
-        />
-        <Route path='/people/:id' element={
-          <PersonProfile
-            setHiredPeople={setHiredPeople}
-            hiredPeople={hiredPeople}
-          />}
-        />
-        <Route path='/people/:id/edit' element={
-          <PersonProfileEdit
-            setHiredPeople={setHiredPeople}
-            hiredPeople={hiredPeople}
-          />}
-        />
+        <Route path='/' element={<Dashboard people={people} />} />
+        <Route path='/people/:id' element={<PersonProfile />} />
+        <Route path='/people/:id/edit' element={<PersonProfileEdit /> }/>
       </Routes>
     </>
   )

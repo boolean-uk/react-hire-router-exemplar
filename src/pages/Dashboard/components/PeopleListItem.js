@@ -1,7 +1,9 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 function PeopleListItem({ person, isHiredList }) {
+  
   return (
+
     <li>
       <h3>
         <Link to={`/people/${person.id.value}`} state={{person}}>

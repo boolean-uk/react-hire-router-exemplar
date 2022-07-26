@@ -1,9 +1,18 @@
-import { useState } from "react"
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react"
+import { useNavigate, useLocation } from 'react-router-dom';
 
-function HireForm({person, hiredPeople, setHiredPeople}) {
+function HireForm({hiredPeople, setHiredPeople}) {
+  const [person, setPerson] = useState(null)
   const [wage, setWage] = useState(0)
-  const navigate = useNavigate();
+
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!location.state) return
+    const personData = location.state.person
+    setPerson(personData)
+  }, [location])
 
   function handleSubmit(event) {
     event.preventDefault()

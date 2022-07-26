@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 
 function PersonProfileEdit({hiredPeople, setHiredPeople}) {
   const [person, setPerson] = useState(null)
+  
   const location = useLocation()
   const navigate = useNavigate()
 
