@@ -23,7 +23,7 @@ export const PersonProfile = ({hiredPeople, setHiredPeople}) => {
 
         <>
           <h2>
-            {UIText.personName}{person.name.first} {person.name.last}
+            {person.name.first} {person.name.last}
           </h2>
           <p>{UIText.personAge}{person.dob.age}</p>            
           <p>{UIText.personEmail}{person.email}</p>
