@@ -1,6 +1,6 @@
-import PeopleListItem from "./PeopleListItem"
+import { PeopleListItem } from "./PeopleListItem"
 
-function PeopleList({ people, areHired}) {
+export const PeopleList = ({ people, areHired}) => {
   return (
     <ul>
       {people.map((person, index) => (
@@ -9,5 +9,3 @@ function PeopleList({ people, areHired}) {
     </ul>
   )
 }
-
-export default PeopleList

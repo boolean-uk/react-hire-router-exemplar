@@ -7,8 +7,12 @@ export const UIText = {
     peopleHired: 'Hired People',
     peopleNone: 'Loading...',
     peopleFetch: 'Fetching People...',
-    hire: 'Hire',
-    hireWage: 'Wage Offer: ',
+    personName: 'Name: ',
+    personEmail: 'eMail: ',
+    personAge: 'Age: ',
+    personWage: 'Wage: £',
+    hire: 'Offer',
+    hireWage: 'Wage Offer: £',
     wageLabel: 'Wage: £',
     buttonEdit: 'Edit'
 }
@@ -17,5 +21,5 @@ export const Paths = {
     home: '/',
     people: '/people',
     person: '/people/:id',
-
+    personHire: '/people/hire'
 }

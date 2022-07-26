@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { UIText, Paths } from '../../../utils/vars'
 
-function PeopleListItem({ person, areHired }) {
+export const PeopleListItem = ({ person, areHired }) => {
 
   const navigate = useNavigate()
 
@@ -36,5 +36,3 @@ function PeopleListItem({ person, areHired }) {
     </li>
   )
 }
-
-export default PeopleListItem

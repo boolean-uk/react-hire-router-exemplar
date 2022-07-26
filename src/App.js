@@ -3,13 +3,13 @@ import { useState, useEffect } from "react"
 import { Routes, Route, Link } from 'react-router-dom'
 
 import { Dashboard } from './pages/Dashboard'
-import PersonProfile from './pages/PersonProfile'
+import { PersonProfile } from './pages/PersonProfile'
 
 import { api, UIText, Paths } from './utils/vars'
 
 import './styles/styles.css'
 
-export default function App() {
+export const App = () => {
 
   const [hiredPeople, setHiredPeople] = useState([])
   const [people, setPeople] = useState([]) 
@@ -20,7 +20,7 @@ export default function App() {
       fetch(`${api}/?results=50`)
         .then(res => res.json())
         .then(data => {
-          //console.log('my data', data)
+          //console.log('my data', data.results)
           setPeople(data.results)
         })
 
@@ -38,10 +38,12 @@ export default function App() {
           </ul>
         </nav>
       </header>
+
       <Routes>
         <Route path={Paths.home} element={<Dashboard people={people} hiredPeople={hiredPeople} />} />
         <Route path={Paths.person} element={<PersonProfile hiredPeople={hiredPeople} setHiredPeople={setHiredPeople} />} />
       </Routes>
+
     </>
   )
 }

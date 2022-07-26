@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 
 import { UIText, Paths } from '../../../utils/vars'
 
-function HireForm({hiredPeople, setHiredPeople}) {
+export const HireForm = ({hiredPeople, setHiredPeople}) => {
   const [person, setPerson] = useState(null)
   const [wage, setWage] = useState(0)
 
@@ -14,12 +14,13 @@ function HireForm({hiredPeople, setHiredPeople}) {
     if (!location.state) return
     const personData = location.state.person
     setPerson(personData)
+    setWage(personData.wage)
   }, [location])
 
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault()
 
-    const thisPerson = {...person, wage: wage}
+    const thisPerson = {...person, wage: wage ? wage : 0}
     const myHirees = [...hiredPeople]
     const myIndex = hiredPeople.findIndex(hiredPerson => hiredPerson.id.value === person.id.value)
     if ( myIndex === -1 ) {      
@@ -39,11 +40,9 @@ function HireForm({hiredPeople, setHiredPeople}) {
         id="wage"
         name="wage"
         onChange={e => setWage(e.target.value)}
-        value={wage}
+        value={wage ? wage : 0}
       />
       <button type="submit">{UIText.hire}</button>
     </form>
   )
 }
-
-export default HireForm

@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
 
-import HireForm from "./components/HireForm"
+import { HireForm } from './components/HireForm'
 
 import { UIText } from '../../utils/vars'
 
-function PersonProfile({hiredPeople, setHiredPeople}) {
+export const PersonProfile = ({hiredPeople, setHiredPeople}) => {
   const [person, setPerson] = useState(null)
+  const [makeOffer, setMakeOffer] = useState(false)
 
   const location = useLocation()
 
@@ -22,9 +23,27 @@ function PersonProfile({hiredPeople, setHiredPeople}) {
 
         <>
           <h2>
-            {person.name.first} {person.name.last}
+            {UIText.personName}{person.name.first} {person.name.last}
           </h2>
-          <HireForm person={person} hiredPeople={hiredPeople} setHiredPeople={setHiredPeople}/>
+          <p>{UIText.personAge}{person.dob.age}</p>            
+          <p>{UIText.personEmail}{person.email}</p>
+
+          {person.wage && (
+            <p>{UIText.personWage}{person.wage}</p>
+          )}
+
+          { makeOffer ? (
+
+            <HireForm person={person} hiredPeople={hiredPeople} setHiredPeople={setHiredPeople} />
+
+          ) : (
+
+          <button onClick={() => setMakeOffer(true)}>
+              Make Offer
+          </button>
+
+          )}
+
         </>
         
       ) : (
@@ -34,5 +53,3 @@ function PersonProfile({hiredPeople, setHiredPeople}) {
     </>
   )
 }
-
-export default PersonProfile
