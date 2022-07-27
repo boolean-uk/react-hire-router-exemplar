@@ -27,10 +27,7 @@ export const PersonProfile = ({hiredPeople, setHiredPeople}) => {
           </h2>
           <p>{UIText.personAge}{person.dob.age}</p>            
           <p>{UIText.personEmail}{person.email}</p>
-
-          {person.wage && (
-            <p>{UIText.personWage}{person.wage}</p>
-          )}
+          <p>{UIText.personWage}{person.wage ? person.wage : 0}</p>
 
           { makeOffer ? (
 

@@ -1,16 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { UIText, Paths } from '../../../utils/vars'
 
 export const PeopleListItem = ({ person, areHired }) => {
 
-  const navigate = useNavigate()
-
-  const handleEdit = () => {
-    //console.log('my person', person)
-    navigate(`${Paths.people}/${person.id.value}`, {state: {person}})
-  }
-  
   return (
 
     <li>
@@ -19,9 +12,10 @@ export const PeopleListItem = ({ person, areHired }) => {
 
             <h3>{person.name.first} {person.name.last}</h3>
             <p>{UIText.wageLabel}{person.wage}</p>
-            <button onClick={handleEdit}>
-              {UIText.buttonEdit}
-            </button>
+            
+            <Link to={`${Paths.people}/${person.id.value}`} state={{person}}>
+              Edit
+            </Link>
           </>
           
         ) : (
