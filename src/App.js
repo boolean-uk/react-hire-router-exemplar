@@ -1,52 +1,49 @@
 import { useState, useEffect } from "react"
-import "./styles.css"
-import Dashboard from './pages/Dashboard'
-import PersonProfile from './pages/PersonProfile'
-import PersonProfileEdit from './pages/PersonProfile/components/PersonProfileEdit'
 
 import { Routes, Route, Link } from 'react-router-dom'
-export default function App() {
+
+import { Dashboard } from './pages/Dashboard'
+import { PersonProfile } from './pages/PersonProfile'
+
+import { api, UIText, Paths } from './utils/vars'
+
+import './styles/styles.css'
+
+export const App = () => {
+
   const [hiredPeople, setHiredPeople] = useState([])
-  const [people, setPeople] = useState([])
+  const [people, setPeople] = useState([]) 
 
   useEffect(() => {
-    fetch('https://randomuser.me/api/?results=50')
-      .then(res => res.json())
-      .then(data => setPeople(data.results))
+
+      //console.log('fetching data')
+      fetch(`${api}/?results=50`)
+        .then(res => res.json())
+        .then(data => {
+          //console.log('my data', data.results)
+          setPeople(data.results)
+        })
+
   }, [])
 
   return (
     <>
       <header>
-        <h1>Hire Your Team</h1>
+        <h1>{UIText.appHeading}</h1>
         <nav>
           <ul>
             <li>
-              <Link to='/'>Dashboard</Link>
+              <Link to={Paths.home}>{UIText.appDashboard}</Link>
             </li>
           </ul>
         </nav>
       </header>
+
       <Routes>
-        <Route path='/' element={
-          <Dashboard
-            people={people}
-            hiredPeople={hiredPeople}
-          />}
-        />
-        <Route path='/people/:id' element={
-          <PersonProfile
-            setHiredPeople={setHiredPeople}
-            hiredPeople={hiredPeople}
-          />}
-        />
-        <Route path='/people/:id/edit' element={
-          <PersonProfileEdit
-            setHiredPeople={setHiredPeople}
-            hiredPeople={hiredPeople}
-          />}
-        />
+        <Route path={Paths.home} element={<Dashboard people={people} hiredPeople={hiredPeople} />} />
+        <Route path={Paths.person} element={<PersonProfile hiredPeople={hiredPeople} setHiredPeople={setHiredPeople} />} />
       </Routes>
+
     </>
   )
 }
